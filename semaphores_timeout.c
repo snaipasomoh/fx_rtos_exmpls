@@ -14,15 +14,22 @@ extern void led_off(void);
 void
 task_0(void *args)
 {
+    int res;
     printf("Task_0 started\n\r");
-    fx_sem_timedwait(&sem_block, FX_THREAD_INFINITE_TIMEOUT);
+    res = fx_sem_timedwait(&sem_block, FX_THREAD_INFINITE_TIMEOUT);
     printf("Task_0 continued\n\r");
+    // As sem_block was released in specific way, timedwait res isn't FX_SEM_OK.
+    if (res == FX_THREAD_WAIT_DELETED)
+    {
+        printf("Semaphore was deinited\n\r");
+    }
     fx_thread_exit();
 }
 
 // When thread_0 blocks this task starts. Setting timeout value prevents 
-// infinite bocking. After 5 tryes of wait sem_block is released and thread_0
-// can resume working.
+// infinite bocking. After 5 tryes of wait sem_block is released with deinit.
+// This frees all threads blocked with deinited semaphore. Before using deinited
+// semaphore it must be reinited.
 void
 task_1(void *args)
 {
@@ -32,7 +39,7 @@ task_1(void *args)
         fx_sem_timedwait(&sem_block, 1000);
     }
     printf("Releasing sem_block\n\r");
-    fx_sem_post(&sem_block);
+    fx_sem_deinit(&sem_block);
     fx_thread_exit();
 }
 
