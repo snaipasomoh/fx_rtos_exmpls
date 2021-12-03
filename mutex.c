@@ -1,7 +1,7 @@
 #include "../../FX-RTOS/FXRTOS.h"
 // #include "FXRTOS.h"
-#include "stdio.h"
-#include "string.h"
+#include <stdio.h>
+#include <string.h>
 
 fx_mutex_t mutex;
 

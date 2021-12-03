@@ -1,7 +1,7 @@
 #include "../../FX-RTOS/FXRTOS.h"
 // #include "FXRTOS.h"
-#include "stdio.h"
-#include "string.h"
+#include <stdio.h>
+#include <string.h>
 
 // Creating semaphore.
 fx_sem_t sem_block;

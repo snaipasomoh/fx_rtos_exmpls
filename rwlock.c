@@ -1,9 +1,9 @@
 #include "../../FX-RTOS/FXRTOS.h"
 // #include "FXRTOS.h"
-#include "stdio.h"
-#include "string.h"
-#include "stdlib.h"
-#include "time.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 fx_rwlock_t rwlock;
 char buf[64];

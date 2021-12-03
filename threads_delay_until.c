@@ -1,8 +1,8 @@
 // demonstration of delay_until, init, resume
 #include "../../FX-RTOS/FXRTOS.h"
 // #include "FXRTOS.h"
-#include "stdio.h"
-#include "string.h"
+#include <stdio.h>
+#include <string.h>
 
 uint32_t time_0;
 uint32_t time_1;
