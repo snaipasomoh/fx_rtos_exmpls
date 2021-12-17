@@ -80,3 +80,13 @@ fx_intr_handler(void)
 {
     ;
 }
+
+int
+main(void)
+{
+    demo_bsp_init();
+    //
+    // Kernel start. This function must be called with interrupts disabled.
+    //
+    fx_kernel_entry();
+}

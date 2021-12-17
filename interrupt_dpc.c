@@ -29,12 +29,15 @@ task(void* args)
     fx_thread_exit();
 }
 
+// DPC function. It will be called after main interrupt handler.
 void
 tim3_dpc(fx_dpc_t* dpc, void* args)
 {
     fx_sem_post(&semaphore);
 }
 
+// Main interrupt handler. Here should be done the most important things related
+// to interrupt handling. Other work should be done in dpc function.
 void
 tim3_handler(void)
 {
@@ -55,6 +58,7 @@ fx_app_init(void)
     fx_thread_init(&thread, task, NULL, 10, stack, sizeof(stack), 0);
 }
 
+// Interrupt handler selector.
 void
 fx_intr_handler(void)
 {
@@ -66,4 +70,14 @@ fx_intr_handler(void)
         default:
             break;
     }
+}
+
+int
+main(void)
+{
+    demo_bsp_init();
+    //
+    // Kernel start. This function must be called with interrupts disabled.
+    //
+    fx_kernel_entry();
 }
