@@ -1,5 +1,4 @@
-// LED on for 5000 ticks
-// demonstration of resume, suspend, sleep, yield, terminate, exit, arg passing
+#include "../lib/FX-RTOS/STM32CubeIDE/FXRTOS.h"
 #include "../../FX-RTOS/FXRTOS.h"
 // #include "FXRTOS.h"
 #include <stdio.h>

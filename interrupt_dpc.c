@@ -1,9 +1,7 @@
-#include "../../FX-RTOS/FXRTOS.h"
-#include "stm32f411xe.h"
-#include "stm32f4xx_hal.h"
-// #include "FXRTOS.h"
+#include "../lib/FX-RTOS/STM32CubeIDE/FXRTOS.h"
 #include <stdio.h>
 #include <string.h>
+#include "demo_bsp.h"
 
 
 fx_dpc_t dpc;
@@ -12,7 +10,6 @@ fx_sem_t semaphore;
 
 extern void led_on(void);
 extern void led_off(void);
-extern TIM_HandleTypeDef htim3;
 
 void
 task(void* args)
@@ -31,7 +28,7 @@ task(void* args)
 
 // DPC function. It will be called after main interrupt handler.
 void
-tim3_dpc(fx_dpc_t* dpc, void* args)
+tim_dpc(fx_dpc_t* dpc, void* args)
 {
     fx_sem_post(&semaphore);
 }
@@ -39,10 +36,10 @@ tim3_dpc(fx_dpc_t* dpc, void* args)
 // Main interrupt handler. Here should be done the most important things related
 // to interrupt handling. Other work should be done in dpc function.
 void
-tim3_handler(void)
+tim_handler(void)
 {
-	__HAL_TIM_CLEAR_IT(&htim3, TIM_IT_UPDATE);
-	fx_dpc_request(&dpc, tim3_dpc, NULL);
+	timer_restart();
+	fx_dpc_request(&dpc, tim_dpc, NULL);
 }
 
 void
@@ -64,8 +61,8 @@ fx_intr_handler(void)
 {
     switch (hal_intr_get_current_vect())
     {
-        case TIM3_IRQn:
-            tim3_handler();
+        case timer_irq:
+            tim_handler();
             break;
         default:
             break;

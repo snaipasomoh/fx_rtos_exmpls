@@ -1,6 +1,4 @@
-// Reusing thread's struct and stack. Getting and setting thread's params.
-// demonstration of deinit, get_params, set_params
-#include "../../FX-RTOS/FXRTOS.h"
+#include "../lib/FX-RTOS/STM32CubeIDE/FXRTOS.h"
 // #include "FXRTOS.h"
 #include <stdio.h>
 #include <string.h>
